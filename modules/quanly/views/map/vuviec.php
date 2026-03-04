@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', function () {
             diemNhayCam: '<?= $diemNhayCamDetailUrlBase ?>',
             diemTrongDiem: '<?= $diemTrongDiemDetailUrlBase ?>',
         },
-        MAP_CENTER: [20.47206102639595, 106.318817631933],
+        MAP_CENTER: [19.051690, 105.536957],
         MAP_ZOOM: 14,
         
         map: null,
