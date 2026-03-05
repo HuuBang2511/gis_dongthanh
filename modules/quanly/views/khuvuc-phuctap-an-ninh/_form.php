@@ -168,8 +168,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <script>
 var map = L.map('map').setView([
-     <?= ($model->lat != null) ? $model->lat : 20.473381288809428 ?>,
-    <?= ($model->long != null) ? $model->long : 106.31907196809175 ?>
+     <?= ($model->lat != null) ? $model->lat : 19.051690 ?>,
+    <?= ($model->long != null) ? $model->long : 105.536957 ?>
    
 ], 16);
 
@@ -204,8 +204,8 @@ let isManualPosition = false;
 
 
 
-const marker = new L.marker([<?= ($model->lat != null) ? $model->lat : 20.473381288809428 ?>,
-    <?= ($model->long != null) ? $model->long : 106.31907196809175 ?>
+const marker = new L.marker([<?= ($model->lat != null) ? $model->lat : 19.051690 ?>,
+    <?= ($model->long != null) ? $model->long : 105.536957 ?>
 ], {
     'draggable': 'true',
     'icon': icon,
