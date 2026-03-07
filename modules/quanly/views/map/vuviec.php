@@ -228,6 +228,31 @@ $diemTrongDiemDetailUrlBase = Url::to(['/quanly/diem-trong-diem/view']);
     }
     /* --- Kết thúc CSS mới --- */
 
+    .report-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: background 0.2s, box-shadow 0.2s;
+    background: var(--background-color);
+}
+.report-card:hover {
+    background: var(--light-gray);
+    box-shadow: var(--shadow);
+}
+.report-icon {
+    width: 22px; height: 22px;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+.report-card-title { font-weight: 600; font-size: 14px; }
+.report-card-desc  { font-size: 12px; color: var(--text-light-color); margin-top: 2px; }
+
 
     @media screen and (max-width: 768px) {
         #tabs {
@@ -244,7 +269,7 @@ $diemTrongDiemDetailUrlBase = Url::to(['/quanly/diem-trong-diem/view']);
     <div id="tabs">
         <div class="tabs-header">
             <a href="<?= Yii::$app->homeUrl ?>" target="_blank">
-                <img src="https://gis.nongdanviet.net/resources/images/logo_map_vuviec.jpg" alt="Logo">
+                <img src="https://datafiles.nghean.gov.vn/nan-ubnd/6710/XaDongThanh/XaDongThanh.png" alt="Logo">
             </a>
             <button id="back-to-map-mobile-btn"></button>
         </div>
@@ -252,6 +277,7 @@ $diemTrongDiemDetailUrlBase = Url::to(['/quanly/diem-trong-diem/view']);
         <div class="tab-buttons">
             <button class="tab-button active" data-tab="layer">Lớp dữ liệu</button>
             <button class="tab-button" data-tab="info">Thông tin</button>
+            <button class="tab-button" data-tab="report">Người dân báo cáo</button>
         </div>
 
         <div id="layer-content" class="tab-content active">
@@ -437,21 +463,21 @@ $diemTrongDiemDetailUrlBase = Url::to(['/quanly/diem-trong-diem/view']);
                                 <!-- 2.5 Lớp Vụ việc -->
                                 <li>
                                     <details>
-                                        <summary><i data-lucide="alert-triangle" class="icon"></i> Lớp Vụ việc</summary>
+                                        <summary><i data-lucide="alert-triangle" class="icon"></i> Lớp phản ánh hiện trường</summary>
                                         <ul>
                                             <li class="layer-tree-item">
                                                 <i data-lucide="map-pin" class="icon"></i>
                                                 <label>
-                                                    <span>Vụ việc (Điểm WMS)</span>
+                                                    <span>Lớp vụ việc</span>
                                                     <input type="checkbox" data-layer-id="wmsVuviecLayer" data-layer-type="wms" data-z-index="550" 
-                                                           data-wms-name="mohinhgis_pa05:vu_viec" data-display-name="Vụ việc (Điểm WMS)" 
+                                                           data-wms-name="mohinhgis_pa05:vu_viec" data-display-name="Lớp vụ việc" 
                                                            data-popup-fields='{"ma_vu_viec": "Mã vụ việc", "tom_tat_noi_dung" : "Tóm tắt nội dung"}'>
                                                 </label>
                                             </li>
                                             <li class="layer-tree-item">
                                                 <i data-lucide="siren" class="icon"></i>
                                                 <label>
-                                                    <span>Điểm nhạy cảm</span>
+                                                    <span>Phản ánh của dân</span>
                                                     <input type="checkbox" data-layer-id="wmsDiemnhaycamLayer" data-layer-type="wms" data-z-index="540" 
                                                            data-wms-name="mohinhgis_pa05:diem_nhay_cam" data-display-name="Điểm nhạy cảm" 
                                                            data-popup-fields='{"tenloaihinh": "Tên loại hình", "thongtin": "Thông tin"}'>
@@ -460,7 +486,7 @@ $diemTrongDiemDetailUrlBase = Url::to(['/quanly/diem-trong-diem/view']);
                                             <li class="layer-tree-item">
                                                 <i data-lucide="target" class="icon"></i>
                                                 <label>
-                                                    <span>Điểm trọng điểm</span>
+                                                    <span>Điểm về rác thải</span>
                                                     <input type="checkbox" data-layer-id="wmsDiemtrongdiemLayer" data-layer-type="wms" data-z-index="530" 
                                                            data-wms-name="mohinhgis_pa05:diem_trong_diem" data-display-name="Điểm trọng điểm" 
                                                            data-popup-fields='{"tenloaihinh": "Tên loại hình", "thongtin": "Thông tin"}'>
@@ -516,6 +542,29 @@ $diemTrongDiemDetailUrlBase = Url::to(['/quanly/diem-trong-diem/view']);
             <div class="section-title">Thông tin chi tiết</div>
             <div id="feature-details"><p>Nhấn vào một đối tượng trên bản đồ để xem thông tin.</p></div>
         </div>
+        <div id="report-content" class="tab-content">
+    <div class="section-title">Tham gia bản đồ số</div>
+    <p style="font-size:13px; color:var(--text-light-color); margin-bottom:1rem;">
+        Chọn loại thông tin bạn muốn báo cáo. Không cần đăng nhập.
+    </p>
+    <a href="<?= Url::to(['/quanly/diem-nhay-cam/create', 'ref' => 'map']) ?>" class="report-card">
+        <i data-lucide="alert-triangle" class="report-icon"></i>
+        <div>
+            <div class="report-card-title">Điểm phản ánh của dân</div>
+            <div class="report-card-desc">Báo cáo khu vực nhạy cảm cần chú ý</div>
+        </div>
+        <i data-lucide="chevron-right" style="margin-left:auto; flex-shrink:0;"></i>
+    </a>
+
+    <a href="<?= Url::to(['/quanly/diem-trong-diem/create', 'ref' => 'map']) ?>" class="report-card">
+        <i data-lucide="focus" class="report-icon"></i>
+        <div>
+            <div class="report-card-title">Điểm về môi trường</div>
+            <div class="report-card-desc">Đánh dấu địa điểm trọng điểm về rác thải</div>
+        </div>
+        <i data-lucide="chevron-right" style="margin-left:auto; flex-shrink:0;"></i>
+    </a>
+</div>
     </div>
 
     <div id="mapTong">
