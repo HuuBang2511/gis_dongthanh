@@ -62,4 +62,17 @@ class QuanlyBaseController extends BaseController
 //            ],
 //        ];
 //    }
+
+    public function beforeAction($action)
+    {
+        // Danh sách các action cho phép truy cập tự do trong module Quanly
+        $allowGuest = ['vuviec', 'search']; 
+
+        if (in_array($action->id, $allowGuest)) {
+            // Nhảy thẳng lên lớp Controller của Yii2, bỏ qua kiểm tra của BaseController hcmgis
+            return \yii\web\Controller::beforeAction($action);
+        }
+
+        return parent::beforeAction($action);
+    }
 }
